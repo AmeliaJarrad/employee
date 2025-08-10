@@ -1,5 +1,5 @@
 package com.example.employee.contractentity;
 
-public class UpdateContract {
+public class UpdateContractDTO {
     
 }

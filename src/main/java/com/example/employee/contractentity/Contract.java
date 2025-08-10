@@ -2,6 +2,8 @@ package com.example.employee.contractentity;
 
 
 import com.example.employee.employeeentity.Employee;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -31,8 +33,9 @@ public class Contract {
     private LocalDate finishDate;
     
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    @JsonBackReference
     private Employee employee;
 
     // --- Getters and Setters ---
