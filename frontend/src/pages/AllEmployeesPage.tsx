@@ -1,6 +1,5 @@
 // src/pages/AllEmployeesPage.tsx
 import React, { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar/NavBar';
 import EmployeeList from '../components/EmployeeList/EmployeeList';
 import { type Employee } from '../components/EmployeeCard/EmployeeCard';
 
@@ -28,7 +27,7 @@ const AllEmployeesPage: React.FC = () => {
 
   return (
     <>
-      <NavBar />
+      
       <div style={{ padding: '2rem' }}>
         <h1>All Employees</h1>
         {loading && <p>Loading employees...</p>}
