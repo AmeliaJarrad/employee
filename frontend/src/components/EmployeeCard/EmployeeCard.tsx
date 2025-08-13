@@ -1,4 +1,8 @@
+// src/components/EmployeeCard/EmployeeCard.tsx
+
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from './EmployeeCard.module.scss';
 
 export type Employee = {
   id: number;
@@ -13,22 +17,30 @@ type EmployeeCardProps = {
 };
 
 const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee }) => {
+  const handleArchive = () => {
+    // You can wire this up to a real API call later
+    console.log(`Archiving employee with ID: ${employee.id}`);
+  };
+
   return (
-    <div style={styles.card}>
-      <h2>{employee.firstName} {employee.lastName}</h2>
-      <p>{employee.email}</p>
+    <div className={styles.card}>
+      <div>
+        <h2 className={styles.name}>
+          {employee.firstName} {employee.lastName}
+        </h2>
+        <p className={styles.email}>{employee.email}</p>
+      </div>
+
+      <div className={styles.actions}>
+        <button onClick={handleArchive} className={styles.archiveBtn}>
+          Archive
+        </button>
+        <Link to={`/employees/${employee.id}/edit`}>
+          <button className={styles.editBtn}>Edit</button>
+        </Link>
+      </div>
     </div>
   );
-};
-
-const styles = {
-  card: {
-    border: '1px solid #ccc',
-    padding: '1rem',
-    margin: '0.5rem 0',
-    borderRadius: '8px',
-    boxShadow: '2px 2px 10px rgba(0,0,0,0.1)'
-  }
 };
 
 export default EmployeeCard;

@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
+
+  input {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  button {
+    margin-top: 1rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    background-color: #3c8dbc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #367fa9;
+    }
+  }
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.contractSection {
+  margin-top: 1rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+select,
+input[type="date"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
