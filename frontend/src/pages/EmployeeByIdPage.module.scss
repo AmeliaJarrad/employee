@@ -1,4 +1,4 @@
-@import '../styles/_buttons.scss';
+@use '../styles/_buttons.scss';
 .container {
   max-width: 1200px;
   margin: 0 auto;          // horizontally center like splash page

@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.employee.common.exceptions.NotFoundException;
+import com.example.employee.common.exceptions.ResourceNotFoundException;
 import com.example.employee.contractentity.Contract;
 import com.example.employee.contractentity.ContractRepository;
 
@@ -24,10 +25,11 @@ public class EmployeeService {
     }
 
     public EmployeeDTO getEmployeeById(Long id) {
-        Employee employee = employeeRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + id));
-        return modelMapper.map(employee, EmployeeDTO.class);
+    Employee employee = employeeRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + id));
+    return modelMapper.map(employee, EmployeeDTO.class);
     }
+
 
     public List<EmployeeDTO> getAllEmployees() {
     return employeeRepository.findAllByIsArchivedFalse()
@@ -53,12 +55,17 @@ public class EmployeeService {
         }
 
         Employee savedEmployee = employeeRepository.save(employee);
-        return modelMapper.map(savedEmployee, EmployeeDTO.class);
+        System.out.println("Saved Employee ID: " + savedEmployee.getId());
+        
+        EmployeeDTO mappedDto = modelMapper.map(savedEmployee, EmployeeDTO.class);
+        System.out.println("Mapped DTO ID: " + mappedDto.getId());
+
+        return mappedDto;
     }
 
-    public EmployeeDTO updateById(Long id, EditEmployeeDTO data) throws NotFoundException {
+   public EmployeeDTO updateById(Long id, EditEmployeeDTO data) throws ResourceNotFoundException {
     Employee employee = employeeRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException("Could not update employee with id " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + id));
 
     modelMapper.getConfiguration().setSkipNullEnabled(true);
     modelMapper.map(data, employee);
@@ -70,7 +77,7 @@ public class EmployeeService {
 
     Employee updated = employeeRepository.save(employee);
     return modelMapper.map(updated, EmployeeDTO.class);
-}
+    }
 
 
 }

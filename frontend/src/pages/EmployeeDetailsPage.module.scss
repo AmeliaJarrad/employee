@@ -37,3 +37,22 @@
     border-left-color: #287b6c;
   }
 }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.lozenge {
+  display: inline-block;
+  background-color: #f0f0f0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: #333;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
