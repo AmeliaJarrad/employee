@@ -1,0 +1,12 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;     // horizontal centering
+  padding: 2rem;      // spacing from nav bar
+  text-align: left;
+}
+
+.container h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;  // bottom margin for spacing below heading
+}

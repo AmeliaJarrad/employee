@@ -10,6 +10,10 @@ import CreateEmployeePage from './pages/CreateEmployeePage';
 import EditEmployeePage from './pages/EditEmployeePage';
 import EmployeeDetailsPage from './pages/EmployeeDetailsPage';
 import ArchivedEmployeesPage from './pages/ArchivedEmployeesPage';
+import './global.css'
+import './styles/_buttons.scss';
+import './styles/_layout.scss';
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

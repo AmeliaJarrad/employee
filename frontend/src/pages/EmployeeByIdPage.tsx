@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { type Employee } from '../components/EmployeeCard/EmployeeCard';
 import EmployeeCard from '../components/EmployeeCard/EmployeeCard';
+import styles from './EmployeeByIdPage.module.scss';
 
 const EmployeeByIdPage: React.FC = () => {
   const [employeeId, setEmployeeId] = useState('');
@@ -26,19 +27,24 @@ const EmployeeByIdPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Find Employee by ID</h1>
       <input
         type="text"
         placeholder="Enter employee ID"
         value={employeeId}
         onChange={(e) => setEmployeeId(e.target.value)}
+        className={styles.inputField}
       />
-      <button onClick={fetchEmployee} disabled={!employeeId || loading}>
+      <button
+        onClick={fetchEmployee}
+        disabled={!employeeId || loading}
+        className={styles.searchButton}
+      >
         {loading ? 'Searching...' : 'Search'}
       </button>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className={styles.errorMsg}>{error}</p>}
       {employee && <EmployeeCard employee={employee} />}
     </div>
   );

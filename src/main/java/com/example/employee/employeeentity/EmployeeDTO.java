@@ -1,6 +1,7 @@
 package com.example.employee.employeeentity;
 
 import com.example.employee.contractentity.ContractDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmployeeDTO {
     private Long id;
@@ -10,6 +11,8 @@ public class EmployeeDTO {
     private String mobileNumber;
     private String address;
     private ContractDTO contract;
+
+    @JsonProperty("isArchived")
     private Boolean isArchived;
 
     // Getters and Setters

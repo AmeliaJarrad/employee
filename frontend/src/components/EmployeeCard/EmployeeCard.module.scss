@@ -34,32 +34,39 @@
   border-radius: 4px;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
+  &:hover {
+    transform: scale(1.05); // grow by 5%
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
 }
 
 /* Specific variants */
 .archiveBtn {
   @extend .buttonBase;
+  border: 2px solid  #7B3728;;
 
   &:hover {
     border: 2px solid  #7B3728;;
-    color: #7B3728;
+    background: #7b372860;
   }
 }
 
 .editBtn {
   @extend .buttonBase;
+  border: 2px solid #287B6C; 
 
   &:hover {
     border: 2px solid #287B6C; 
-    color: #287B6C;
+    background: #287b6c4b
   }
 }
 
 .detailsBtn {
   @extend .buttonBase;
+  border: 2px solid #0c4186; 
 
   &:hover {
     border: 2px solid #0c4186; 
-    color: #0c4186;
+    background: #0c418669;
   }
 }

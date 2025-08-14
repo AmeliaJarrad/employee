@@ -1,14 +1,33 @@
 .navBar {
+  display: flex;
+  justify-content: space-between; /* push logo left, links right */
+  align-items: center;
   padding: 1rem;
   background-color: #d5b59bbd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.541);
+  z-index: 3;
+  position: relative;
 
-  a {
-    margin-right: 1.5rem;
-    text-decoration: none;
+  .logo {
+    font-weight: bold;
+    font-size: 1.25rem;
     color: #333;
+  }
 
-    &:hover {
-      color: #007BFF;
+  .navLinks {
+    display: flex;
+    padding-right: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #333;
+
+      &:hover {
+        color: #007BFF;
+      }
     }
   }
 }

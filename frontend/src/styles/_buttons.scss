@@ -1,0 +1,42 @@
+/* src/styles/_buttons.scss */
+
+.buttonBase {
+  background: transparent;
+  border: 1px solid #a19d9d;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.archiveBtn {
+  @extend .buttonBase;
+  border: 2px solid #7B3728;
+
+  &:hover {
+    background: #7b372860;
+  }
+}
+
+.editBtn {
+  @extend .buttonBase;
+  border: 2px solid #287B6C;
+
+  &:hover {
+    background: #287b6c4b;
+  }
+}
+
+.detailsBtn {
+  @extend .buttonBase;
+  border: 2px solid #0c4186;
+
+  &:hover {
+    background: #0c418669;
+  }
+}

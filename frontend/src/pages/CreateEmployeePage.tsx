@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal/Modal';
 import EmployeeForm, { type EmployeeFormData } from '../components/EmployeeForm/EmployeeForm';
@@ -8,6 +8,11 @@ const CreateEmployeePage = () => {
   const [modalState, setModalState] = useState<'form' | 'success' | 'error'>('form');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Auto-open the modal when the page loads
+    setModalOpen(true);
+  }, []);
 
   const handleCreate = async (data: EmployeeFormData) => {
     try {
@@ -26,7 +31,7 @@ const CreateEmployeePage = () => {
       // Auto-close and redirect after a short delay
       setTimeout(() => {
         setModalOpen(false);
-        setModalState('form'); // Reset state
+        setModalState('form');
         navigate('/employees');
       }, 1500);
     } catch (err) {
@@ -43,34 +48,31 @@ const CreateEmployeePage = () => {
   };
 
   return (
-    <>
-      <button onClick={() => setModalOpen(true)}>Create New Employee</button>
-
-      <Modal
-        isOpen={modalOpen}
-        onClose={handleModalClose}
-        title={
-          modalState === 'success'
-            ? 'Employee Created'
-            : modalState === 'error'
-            ? 'Error'
-            : 'Create New Employee'
-        }
-        message={
-          modalState === 'success'
-            ? 'The employee has been created successfully!'
-            : modalState === 'error'
-            ? errorMessage
-            : undefined
-        }
-        variant={modalState} 
-      >
-        {modalState === 'form' && (
-          <EmployeeForm onSubmit={handleCreate} submitLabel="Create" />
-        )}
-      </Modal>
-    </>
+    <Modal
+      isOpen={modalOpen}
+      onClose={handleModalClose}
+      title={
+        modalState === 'success'
+          ? 'Employee Created'
+          : modalState === 'error'
+          ? 'Error'
+          : 'Create New Employee'
+      }
+      message={
+        modalState === 'success'
+          ? 'The employee has been created successfully!'
+          : modalState === 'error'
+          ? errorMessage
+          : undefined
+      }
+      variant={modalState}
+    >
+      {modalState === 'form' && (
+        <EmployeeForm onSubmit={handleCreate} submitLabel="Create" />
+      )}
+    </Modal>
   );
 };
 
 export default CreateEmployeePage;
+

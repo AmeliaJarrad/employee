@@ -68,10 +68,19 @@ const ArchivedEmployeesPage = () => {
   };
 
   return (
-  <div>
-    <h1>Archived Employees</h1>
+    <div
+      // Use existing container class for card layout,
+      // but override margins/padding here inline or with a small helper class
+      className={styles.container}
+      style={{ maxWidth: '1200px', margin: '2rem auto', padding: '2rem', textAlign: 'left' }}
+    >
+      <h1
+        style={{ fontSize: '2.4rem', fontWeight: 600, marginBottom: '2rem', marginTop: 0 }}
+      >
+        Archived Employees
+      </h1>
 
-    <Modal
+      <Modal
               isOpen={modalOpen}
               onClose={handleModalClose}
               title={modalState === 'success'
@@ -88,26 +97,26 @@ const ArchivedEmployeesPage = () => {
                   : modalState === 'error'
                       ? errorMessage
                       : undefined}
-              variant={modalState} children={undefined}    />
+              variant={modalState} children={undefined}      />
 
-    {archivedEmployees.length === 0 ? (
-      <div className={styles.card}>
-        <h2>No Archived Employees</h2>
-        <p>You don't have any archived employees at the moment.</p>
-      </div>
-    ) : (
-      <div className={styles.cardList}>
-        {archivedEmployees.map((employee) => (
-          <EmployeeCard
-            key={employee.id}
-            employee={employee}
-            onToggleArchive={handleToggleArchive}
-          />
-        ))}
-      </div>
-    )}
-  </div>
-);
-}
+      {archivedEmployees.length === 0 ? (
+        <div className={styles.card}>
+          <h2>No Archived Employees</h2>
+          <p>You don't have any archived employees at the moment.</p>
+        </div>
+      ) : (
+        <div className={styles.cardList}>
+          {archivedEmployees.map((employee) => (
+            <EmployeeCard
+              key={employee.id}
+              employee={employee}
+              onToggleArchive={handleToggleArchive}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default ArchivedEmployeesPage;

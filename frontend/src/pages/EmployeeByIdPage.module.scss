@@ -1,0 +1,47 @@
+@import '../styles/_buttons.scss';
+.container {
+  max-width: 1200px;
+  margin: 0 auto;          // horizontally center like splash page
+  padding: 2rem;           // consistent spacing from nav bar
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;      // match splash header margin-bottom
+}
+
+
+.inputField {
+  width: 30%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  margin-top: 1.5rem; 
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #646cff;
+    box-shadow: 0 0 5px #646cff88;
+  }
+}
+
+.searchButton {
+  @extend .buttonBase;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem; 
+  display: block; /* make button only as wide as needed */
+}
+
+.errorMsg {
+  color: #b00020;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

@@ -36,6 +36,14 @@ public class EmployeeService {
         .collect(Collectors.toList());
     }
 
+    public List<EmployeeDTO> getArchivedEmployees() {
+    return employeeRepository.findAllByIsArchivedTrue()
+        .stream()
+        .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
+        .collect(Collectors.toList());
+    }
+
+
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
         Employee employee = modelMapper.map(employeeDTO, Employee.class);
 
@@ -49,38 +57,20 @@ public class EmployeeService {
     }
 
     public EmployeeDTO updateById(Long id, EditEmployeeDTO data) throws NotFoundException {
-        Employee employee = employeeRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Could not update employee with id " + id));
+    Employee employee = employeeRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Could not update employee with id " + id));
 
-        modelMapper.map(data, employee);
+    modelMapper.getConfiguration().setSkipNullEnabled(true);
+    modelMapper.map(data, employee);
 
-        // Ensure contract still references the employee
-        if (employee.getContract() != null) {
-            employee.getContract().setEmployee(employee);
-        }
-
-        //check for archive
-        if (data.getIsArchived() != null) {
-            employee.setIsArchived(data.getIsArchived());
-        }
-
-
-        Employee updated = employeeRepository.save(employee);
-        return modelMapper.map(updated, EmployeeDTO.class);
+    // Contract bi-directional fix, if needed
+    if (employee.getContract() != null) {
+        employee.getContract().setEmployee(employee);
     }
 
-    public void archiveEmployee(Long id) throws NotFoundException {
-        Employee employee = employeeRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Employee not found"));
-        employee.setIsArchived(true);
-        employeeRepository.save(employee);
-    }
+    Employee updated = employeeRepository.save(employee);
+    return modelMapper.map(updated, EmployeeDTO.class);
+}
 
-    public void unarchiveEmployee(Long id) throws NotFoundException {
-        Employee employee = employeeRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Employee not found"));
-        employee.setIsArchived(false);
-        employeeRepository.save(employee);
-    }
 
 }
