@@ -1,27 +1,50 @@
 import { z } from 'zod';
 
 export const employeeFormSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  email: z.email('Invalid email address'),
-  mobileNumber: z.string().min(10, 'Mobile number is required'),
-  address: z.string().min(1, 'Address is required'),
+  firstName: z.string().min(1, { message: 'First name is required' }),
+  lastName: z.string().min(1, { message: 'Last name is required' }),
+  email: z.email({ message: 'Invalid email address' }),
+  mobileNumber: z.string().min(1, { message: 'Mobile number is required' }),
+  address: z.string().min(1, { message: 'Address is required' }),
   contract: z.object({
-    contractType: z.enum(['PERMANENT', 'CONTRACT']),
-    employmentType: z.enum(['FULL_TIME', 'PART_TIME']),
-    startDate: z.string().min(1, 'Start date is required'),
-    finishDate: z.string().optional(),
-  }).refine((data) => {
-    if (data.contractType === 'CONTRACT') {
-      if (!data.finishDate) return false;
-      return new Date(data.finishDate) >= new Date(data.startDate);
+    contractType: z
+      .enum(['PERMANENT', 'CONTRACT'])
+      .refine(val => !!val, { message: 'Contract type is required' }),
+
+    employmentType: z
+      .enum(['FULL_TIME', 'PART_TIME'])
+      .refine(val => !!val, { message: 'Employment type is required' }),
+
+    startDate: z.string().min(1, { message: 'Start date is required' }),
+
+    finishDate: z
+        .string()
+        .nullable()
+        .transform((val) => (val === '' ? null : val)),
+    })
+    .superRefine((contract, ctx) => {
+    const { contractType, startDate, finishDate } = contract;
+
+    if (contractType === 'CONTRACT' && !finishDate) {
+        ctx.addIssue({
+        code: 'custom',
+        path: ['finishDate'],
+        message: 'Finish date is required for contract employees',
+        });
     }
-    return true;
-  }, {
-    message: 'Finish date is required and must be after start date for CONTRACTs',
-    path: ['finishDate'],
+
+    if (startDate && finishDate) {
+        const start = new Date(startDate);
+        const finish = new Date(finishDate);
+
+    if (!isNaN(start.getTime()) && !isNaN(finish.getTime()) && finish < start) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['finishDate'],
+        message: 'Finish date must be after start date',
+        });
+      }
+    }
+
   }),
 });
-
-export type EmployeeFormData = z.infer<typeof employeeFormSchema>;
-

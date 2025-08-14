@@ -1,39 +1,44 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { employeeFormSchema} from '../../schemas/employeeSchema';
+import { employeeFormSchema } from '../../schemas/employeeSchema';
 import { useEffect } from 'react';
-import styles from './EmployeeForm.module.scss'; 
+import styles from './EmployeeForm.module.scss';
 
 export type EmployeeFormData = z.infer<typeof employeeFormSchema>;
-
 
 type EmployeeFormProps = {
   onSubmit: (data: EmployeeFormData) => void;
   defaultValues?: EmployeeFormData;
   submitLabel?: string;
+  isEdit?: boolean;
 };
 
-const EmployeeForm = ({ onSubmit, defaultValues, submitLabel = 'Submit' }: EmployeeFormProps) => {
+const EmployeeForm = ({ onSubmit, defaultValues, submitLabel = 'Submit', isEdit = false }: EmployeeFormProps) => {
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeFormSchema),
-    defaultValues, // used on first mount
+    defaultValues,
   });
 
-  // This handles updates to defaultValues when editing
   useEffect(() => {
     if (defaultValues) {
       reset(defaultValues);
     }
   }, [defaultValues, reset]);
 
+  const contractType = useWatch({
+    control,
+    name: 'contract.contractType',
+  });
+
   return (
-     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <input {...register('firstName')} placeholder="First Name" />
       {errors.firstName && <span className={styles.error}>{errors.firstName.message}</span>}
 
@@ -54,20 +59,46 @@ const EmployeeForm = ({ onSubmit, defaultValues, submitLabel = 'Submit' }: Emplo
         <option value="PERMANENT">Permanent</option>
         <option value="CONTRACT">Contract</option>
       </select>
-      {errors.contract?.contractType && <span className={styles.error}>{errors.contract.contractType.message}</span>}
+      {errors.contract?.contractType && (
+        <span className={styles.error}>{errors.contract.contractType.message}</span>
+      )}
 
       <select {...register('contract.employmentType')}>
         <option value="">Select Employment Type</option>
         <option value="FULL_TIME">Full Time</option>
         <option value="PART_TIME">Part Time</option>
       </select>
-      {errors.contract?.employmentType && <span className={styles.error}>{errors.contract.employmentType.message}</span>}
+      {errors.contract?.employmentType && (
+        <span className={styles.error}>{errors.contract.employmentType.message}</span>
+      )}
 
-      <input {...register('contract.startDate')} placeholder="Start Date (YYYY-MM-DD)" />
-      {errors.contract?.startDate && <span className={styles.error}>{errors.contract.startDate.message}</span>}
+      <div className={styles.formGroup}>
+        <label>
+          Start Date:
+          <input
+            type="date"
+            {...register('contract.startDate')}
+            min={!isEdit ? new Date().toISOString().split('T')[0] : undefined}
+          />
+        </label>
+        {errors.contract?.startDate && (
+          <span className={styles.error}>{errors.contract.startDate.message}</span>
+        )}
+      </div>
 
-      <input {...register('contract.finishDate')} placeholder="Finish Date (YYYY-MM-DD or leave empty)" />
-      {errors.contract?.finishDate && <span className={styles.error}>{errors.contract.finishDate.message}</span>}
+      <div className={styles.formGroup}>
+        <label>
+          Finish Date:
+          <input
+            type="date"
+            {...register('contract.finishDate')}
+            disabled={contractType !== 'CONTRACT'}
+          />
+        </label>
+        {errors.contract?.finishDate && (
+          <span className={styles.error}>{errors.contract.finishDate.message}</span>
+        )}
+      </div>
 
       <button type="submit">{submitLabel}</button>
     </form>
@@ -75,3 +106,5 @@ const EmployeeForm = ({ onSubmit, defaultValues, submitLabel = 'Submit' }: Emplo
 };
 
 export default EmployeeForm;
+
+

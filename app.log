@@ -1,0 +1,53 @@
+2025-08-14T11:28:50.577+10:00  INFO 75196 --- [employee] [restartedMain] c.example.employee.EmployeeApplication   : Starting EmployeeApplication using Java 21.0.6 with PID 75196 (C:\Users\ameli\terminal_playground\spring\employee\employee\target\classes started by ameli in C:\Users\ameli\terminal_playground\spring\employee\employee)
+2025-08-14T11:28:50.579+10:00  INFO 75196 --- [employee] [restartedMain] c.example.employee.EmployeeApplication   : The following 1 profile is active: "local"
+2025-08-14T11:28:50.619+10:00  INFO 75196 --- [employee] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-08-14T11:28:51.219+10:00  INFO 75196 --- [employee] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-14T11:28:51.274+10:00  INFO 75196 --- [employee] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 2 JPA repository interfaces.
+2025-08-14T11:28:51.733+10:00  INFO 75196 --- [employee] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-14T11:28:51.748+10:00  INFO 75196 --- [employee] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-14T11:28:51.749+10:00  INFO 75196 --- [employee] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-08-14T11:28:51.795+10:00  INFO 75196 --- [employee] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-14T11:28:51.796+10:00  INFO 75196 --- [employee] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1177 ms
+2025-08-14T11:28:51.937+10:00  INFO 75196 --- [employee] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-14T11:28:52.002+10:00  INFO 75196 --- [employee] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-08-14T11:28:52.036+10:00  INFO 75196 --- [employee] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-14T11:28:52.326+10:00  INFO 75196 --- [employee] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-14T11:28:52.357+10:00  INFO 75196 --- [employee] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-14T11:28:52.511+10:00  INFO 75196 --- [employee] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@575a2bcf
+2025-08-14T11:28:52.512+10:00  INFO 75196 --- [employee] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-14T11:28:52.556+10:00  WARN 75196 --- [employee] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-14T11:28:52.557+10:00  WARN 75196 --- [employee] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-08-14T11:28:52.571+10:00  INFO 75196 --- [employee] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-14T11:28:53.321+10:00  INFO 75196 --- [employee] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-14T11:28:53.633+10:00  INFO 75196 --- [employee] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-14T11:28:53.985+10:00  WARN 75196 --- [employee] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-14T11:28:54.247+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [schema.sql]
+2025-08-14T11:28:54.272+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 0 returned as update count for SQL: DROP TABLE IF EXISTS contract
+2025-08-14T11:28:54.290+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 0 returned as update count for SQL: DROP TABLE IF EXISTS employee
+2025-08-14T11:28:54.340+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 0 returned as update count for SQL: CREATE TABLE employee ( id BIGINT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(100) NOT NULL, last_name VARCHAR(100) NOT NULL, email VARCHAR(255) UNIQUE NOT NULL, mobile_number VARCHAR(20), address TEXT, is_archived BOOLEAN NOT NULL DEFAULT FALSE )
+2025-08-14T11:28:54.423+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 0 returned as update count for SQL: CREATE TABLE contract ( id BIGINT AUTO_INCREMENT PRIMARY KEY, contract_type VARCHAR(50) NOT NULL, employment_type VARCHAR(50) NOT NULL, start_date DATE, finish_date DATE, employee_id BIGINT, CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employee(id) )
+2025-08-14T11:28:54.425+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [schema.sql] in 177 ms.
+2025-08-14T11:28:54.426+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [data.sql]
+2025-08-14T11:28:54.440+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 1 returned as update count for SQL: INSERT INTO employee (first_name, last_name, email, mobile_number, address, is_archived) VALUES ('Jamie', 'Smith', 'jamie.smith@example.com', '0400123123', '123 Barkly St', FALSE)
+2025-08-14T11:28:54.451+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 1 returned as update count for SQL: INSERT INTO contract (contract_type, employment_type, start_date, finish_date, employee_id) VALUES ('PERMANENT', 'FULL_TIME', '2023-01-01', null, 1)
+2025-08-14T11:28:54.467+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 1 returned as update count for SQL: INSERT INTO employee (first_name, last_name, email, mobile_number, address, is_archived) VALUES ('Alex', 'Johnson', 'alex.johnson@example.com', '0400456789', '456 Smith St', FALSE)
+2025-08-14T11:28:54.480+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : 1 returned as update count for SQL: INSERT INTO contract (contract_type, employment_type, start_date, finish_date, employee_id) VALUES ('CONTRACT', 'PART_TIME', '2024-05-15', '2025-05-14', 2)
+2025-08-14T11:28:54.481+10:00 DEBUG 75196 --- [employee] [restartedMain] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [data.sql] in 55 ms.
+2025-08-14T11:28:54.546+10:00  INFO 75196 --- [employee] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-08-14T11:28:54.573+10:00  INFO 75196 --- [employee] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-14T11:28:54.581+10:00  INFO 75196 --- [employee] [restartedMain] c.example.employee.EmployeeApplication   : Started EmployeeApplication in 4.409 seconds (process running for 4.802)
+2025-08-14T11:29:08.423+10:00  INFO 75196 --- [employee] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-14T11:29:08.423+10:00  INFO 75196 --- [employee] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-14T11:29:08.424+10:00  INFO 75196 --- [employee] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-08-14T11:51:43.870+10:00  INFO 75196 --- [employee] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-14T11:51:43.880+10:00  INFO 75196 --- [employee] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-14T11:51:43.888+10:00  INFO 75196 --- [employee] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-14T11:51:43.893+10:00  INFO 75196 --- [employee] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-14T11:51:43.901+10:00  INFO 75196 --- [employee] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

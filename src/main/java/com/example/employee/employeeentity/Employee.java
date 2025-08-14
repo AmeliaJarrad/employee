@@ -1,5 +1,8 @@
 package com.example.employee.employeeentity;
 
+import org.hibernate.annotations.SQLDelete;
+
+
 import com.example.employee.contractentity.Contract;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -16,9 +19,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "employee")
+@SQLDelete(sql = "UPDATE employee SET is_archived = true WHERE id = ?")
+
 public class Employee {
     
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,6 +41,10 @@ public class Employee {
 
     @Column
     private String address;
+
+    @Column(name = "is_archived", nullable = false)
+    private boolean isArchived = false;
+
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -98,6 +106,14 @@ public class Employee {
 
     public void setContract(Contract contract) {
         this.contract = contract;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setIsArchived(boolean isArchived) {
+        this.isArchived = isArchived;
     }
 
 }

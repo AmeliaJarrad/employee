@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS contract;
 DROP TABLE IF EXISTS employee;
 
-
 -- Employee table
 CREATE TABLE employee (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -9,7 +8,8 @@ CREATE TABLE employee (
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     mobile_number VARCHAR(20),
-    address TEXT
+    address TEXT,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 -- Contract table

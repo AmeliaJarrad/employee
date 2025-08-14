@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Modal from '../components/Modal/Modal';
 import EmployeeForm, { type EmployeeFormData } from '../components/EmployeeForm/EmployeeForm';
 
 const EditEmployeePage = () => {
@@ -8,7 +9,11 @@ const EditEmployeePage = () => {
 
   const [employee, setEmployee] = useState<EmployeeFormData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
+
+  const [modalOpen, setModalOpen] = useState(true);
+  const [modalState, setModalState] = useState<'form' | 'success' | 'error'>('form');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -19,6 +24,7 @@ const EditEmployeePage = () => {
         setEmployee(data);
       } catch (err: any) {
         setError(err.message || 'Failed to fetch employee');
+        setModalState('error');
       } finally {
         setLoading(false);
       }
@@ -30,7 +36,7 @@ const EditEmployeePage = () => {
   const handleUpdate = async (formData: EmployeeFormData) => {
     try {
       const response = await fetch(`https://employeeapi.ameliajarrad.site/api/employees/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -38,20 +44,56 @@ const EditEmployeePage = () => {
       });
 
       if (!response.ok) throw new Error('Failed to update employee');
-      navigate('/employees'); // Redirect after success
+      setModalState('success');
+
+      setTimeout(() => {
+        setModalOpen(false);
+        navigate('/employees');
+      }, 1500);
     } catch (err) {
       console.error(err);
+      setErrorMessage('Something went wrong while updating the employee.');
+      setModalState('error');
     }
   };
 
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setModalState('form');
+    setErrorMessage('');
+  };
+
   if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
-    <div>
-      <h2>Edit Employee</h2>
-      <EmployeeForm onSubmit={handleUpdate} defaultValues={employee!} submitLabel="Update" />
-    </div>
+    <Modal
+      isOpen={modalOpen}
+      onClose={handleModalClose}
+      title={
+        modalState === 'success'
+          ? 'Employee Updated'
+          : modalState === 'error'
+          ? 'Error'
+          : 'Edit Employee'
+      }
+      message={
+        modalState === 'success'
+          ? 'The employee has been updated successfully!'
+          : modalState === 'error'
+          ? errorMessage
+          : undefined
+      }
+      variant={modalState}
+    >
+      {modalState === 'form' && employee && (
+        <EmployeeForm
+          onSubmit={handleUpdate}
+          defaultValues={employee}
+          submitLabel="Update"
+          isEdit={true}
+        />
+      )}
+    </Modal>
   );
 };
 

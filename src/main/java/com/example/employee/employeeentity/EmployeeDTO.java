@@ -10,6 +10,7 @@ public class EmployeeDTO {
     private String mobileNumber;
     private String address;
     private ContractDTO contract;
+    private Boolean isArchived;
 
     // Getters and Setters
 
@@ -68,4 +69,14 @@ public class EmployeeDTO {
     public void setContract(ContractDTO contract) {
         this.contract = contract;
     }
+
+    public Boolean getIsArchived() {
+        return isArchived;
+    }
+
+    public void setIsArchived(Boolean isArchived) {
+        this.isArchived = isArchived;
+    }
+
+    
 }

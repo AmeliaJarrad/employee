@@ -27,16 +27,25 @@ public class EmployeeController {
         
     }
 
-    @GetMapping
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    //excluding the archived employees from the list 
+
+   @GetMapping
+    public List<Employee> getAllActiveEmployees() {
+        return employeeRepository.findAllByIsArchivedFalse();
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long id) {
         EmployeeDTO employeeDto = employeeService.getEmployeeById(id);
         return ResponseEntity.ok(employeeDto);
     }
+
+    @GetMapping("/archived")
+    public List<Employee> getArchivedEmployees() {
+        return employeeRepository.findAllByIsArchivedTrue();
+    }
+
 
     @PostMapping
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
@@ -49,6 +58,18 @@ public class EmployeeController {
             throws NotFoundException {
         EmployeeDTO dto = employeeService.updateById(id, data);
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/archive")
+    public ResponseEntity<Void> archiveEmployee(@PathVariable Long id) throws NotFoundException {
+        employeeService.archiveEmployee(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/unarchive")
+    public ResponseEntity<Void> unarchiveEmployee(@PathVariable Long id) throws NotFoundException {
+        employeeService.unarchiveEmployee(id);
+        return ResponseEntity.noContent().build();
     }
 
 

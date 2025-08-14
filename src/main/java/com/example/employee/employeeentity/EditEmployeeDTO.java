@@ -9,6 +9,7 @@ public class EditEmployeeDTO {
     public String mobileNumber;
     public String address;
     public ContractDTO contract;
+    private Boolean isArchived;
 
     public String getFirstName() {
         return firstName;
@@ -40,4 +41,11 @@ public class EditEmployeeDTO {
     public void setAddress(String address) {
         this.address = address;
     }
+    public Boolean getIsArchived() {
+        return isArchived;
+    }
+    public void setIsArchived(Boolean isArchived) {
+        this.isArchived = isArchived;
+    }
+
 }

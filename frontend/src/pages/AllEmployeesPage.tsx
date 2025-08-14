@@ -1,41 +1,59 @@
 // src/pages/AllEmployeesPage.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import EmployeeList from '../components/EmployeeList/EmployeeList';
-import { type Employee } from '../components/EmployeeCard/EmployeeCard';
+import type { Employee } from '../components/EmployeeCard/EmployeeCard';
 
-const AllEmployeesPage: React.FC = () => {
+const API_URL = 'https://employeeapi.ameliajarrad.site/api/employees';
+
+const AllEmployeesPage = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await fetch('https://employeeapi.ameliajarrad.site/api/employees');
-        if (!response.ok) throw new Error(`Error: ${response.status}`);
-        const data = await response.json();
-        setEmployees(data);
-      } catch (err: any) {
-        setError(err.message || 'Unexpected error');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchEmployees = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error('Failed to fetch employees');
+      const data: Employee[] = await res.json();
+      setEmployees(data);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchEmployees();
   }, []);
 
+  // Unified archive/unarchive toggle handler
+  const handleToggleArchive = async (id: number, isArchived: boolean) => {
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isArchived }),
+      });
+      if (!res.ok) throw new Error('Failed to update archive status');
+      await fetchEmployees(); // Refresh list after update
+    } catch (err) {
+      console.error(err);
+      setError('Failed to update archive status');
+    }
+  };
+
+  if (loading) return <p>Loading employees...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+
   return (
-    <>
-      
-      <div style={{ padding: '2rem' }}>
-        <h1>All Employees</h1>
-        {loading && <p>Loading employees...</p>}
-        {error && <p>Error: {error}</p>}
-        {!loading && !error && <EmployeeList employees={employees} />}
-      </div>
-    </>
+    <div>
+      <EmployeeList employees={employees} onToggleArchive={handleToggleArchive} />
+    </div>
   );
 };
 
 export default AllEmployeesPage;
+

@@ -10,6 +10,7 @@ const NavBar: React.FC = () => {
       <Link to="/employees">Employees</Link>
       <Link to="/find-employee">Find by ID</Link>
       <Link to="/employees/new">Create Employee</Link>
+      <Link to="/employees/archived">Archived Employees </Link>
     </nav>
   );
 };
