@@ -19,7 +19,7 @@ This is an Employee Management App — a web‑based application to allow admin 
 
 ### MVP Features
 
-Create, read, update, delete (or archive) employee records
+Create, read, update, delete (archive) employee records
 
 Search or filter employee list
 
@@ -29,13 +29,13 @@ Responsive UI so it works on different screen sizes
 
 ### Stack Used & Why
 
-Frontend: React + TypeScript (or whatever you used)
+Frontend: React + TypeScript 
 
 Backend: Spring Boot REST API
 
-Database: SQL (e.g. PostgreSQL/MySQL) hosted in EC2 environment
+Database: MySQL hosted in EC2 environment
 
-Hosting: Backend server on AWS EC2; frontend also deployed (if separate)
+Hosting: Backend server on AWS EC2; frontend server on AWS S3
 
  - **Why:**
 Spring Boot is reliable for building robust backend services. SQL gives structured relational data support. Hosting on EC2 gives you control over environment and deployment. React & TS for a maintainable front‑end with type checking and component structure.
@@ -81,9 +81,9 @@ npm run dev              # or npm start / yarn start etc.
 
 ✅ Edit existing employee data
 
-✅ Delete (or archive) employee
+✅ Delete (archive) employee
 
-✅ Search or filter by name, department, etc.
+✅ Search by employee id.
 
 ✅ Responsive UI
 
